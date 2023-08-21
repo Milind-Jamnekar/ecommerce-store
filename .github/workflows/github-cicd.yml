@@ -21,5 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build the App
+        run: npm run build
+
       - name: Deploy workers
-        run: npm run deploy
+        run: npm run deploy ./functions/[[path]].js
