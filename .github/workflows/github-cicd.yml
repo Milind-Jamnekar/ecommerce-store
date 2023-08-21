@@ -24,6 +24,6 @@ jobs:
       - name: Build Remix
         run: npm run build
 
-      - name: Start Remix Dev Server
-        run: npm run dev
+      - name: Deploy workers
+        run: npm run deploy
         if: github.ref == github.repository.default_branch
