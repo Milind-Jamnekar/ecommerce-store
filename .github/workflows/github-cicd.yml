@@ -1,14 +1,34 @@
-stages: 
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - '*'
+
+stages:
   - deploy
 
-deploy-worker:
-  image: node:lts
-  stage: deploy
-  environment: production
-  before-script:
-    - npm run build
-  script:
-    - npm run start
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+jobs:
+  deploy-worker:
+    runs-on: ubuntu-latest
+    stage: deploy
+    environment: production
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Remix
+        run: npm run build
+
+      - name: Start Remix Dev Server
+        run: npm run dev
+        if: github.ref == github.repository.default_branch
