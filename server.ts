@@ -8,6 +8,9 @@ if (process.env.NODE_ENV === "development") {
 
 export const onRequest = createPagesFunctionHandler({
   build,
-  getLoadContext: (context) => ({ env: context.env }),
+  getLoadContext(context) {
+    // Hand-off Cloudflare ENV vars to the Remix `context` object
+    return { env: context.env };
+  },
   mode: process.env.NODE_ENV,
 });

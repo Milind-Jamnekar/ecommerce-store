@@ -1,0 +1,14 @@
+stages: 
+  - deploy
+
+deploy-worker:
+  image: node:lts
+  stage: deploy
+  environment: production
+  before-script:
+    - npm run build
+  script:
+    - npm run start
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
