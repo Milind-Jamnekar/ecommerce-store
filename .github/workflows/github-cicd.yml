@@ -5,14 +5,9 @@ on:
     branches:
       - '*'
 
-stages:
-  - deploy
-
 jobs:
   deploy-worker:
     runs-on: ubuntu-latest
-    stage: deploy
-    environment: production
 
     steps:
       - name: Checkout repository
